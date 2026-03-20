@@ -30,7 +30,7 @@ jobs:
           cd ios
           ls
           xcodebuild -workspace *.xcworkspace \
-          -scheme MyIOSApp \
+          -scheme MYAPPIOS \
           -configuration Release \
           -sdk iphoneos \
           build
