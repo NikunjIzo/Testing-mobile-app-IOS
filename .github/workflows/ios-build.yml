@@ -14,7 +14,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
@@ -22,15 +23,15 @@ jobs:
       - name: Install CocoaPods
         run: |
           cd ios
+          # Remove local env files that can cause Node version conflicts
+          rm -f .xcode.env.local 
           pod install --repo-update
-          ls -la
 
       - name: Build iOS App
         run: |
-          cd ios
-          ls
-          xcodebuild -workspace *.xcworkspace \
-          -scheme MYAPPIOS \
-          -configuration Release \
-          -sdk iphoneos \
-          build
+          xcodebuild -workspace ios/*.xcworkspace \
+            -scheme MYAPPIOS \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            CODE_SIGNING_ALLOWED=NO \
+            build
