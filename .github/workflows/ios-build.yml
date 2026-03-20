@@ -22,13 +22,14 @@ jobs:
       - name: Install CocoaPods
         run: |
           cd ios
-          pod install
-          cd ..
+          pod install --repo-update
+          ls -la
 
       - name: Build iOS App
         run: |
           cd ios
-          xcodebuild -workspace MyIOSApp.xcworkspace \
+          ls
+          xcodebuild -workspace *.xcworkspace \
           -scheme MyIOSApp \
           -configuration Release \
           -sdk iphoneos \
